@@ -1,0 +1,16 @@
+node {
+    stage('Checkout') {
+        git 'https://github.com/sandeepbhupathi/jenkins2-course-spring-boot.git'
+    }
+   
+    def project_path = "spring-boot-samples/spring-boot-sample-atmosphere"
+
+    dir("${project_path}") {
+        stage('Compile and Package') {
+            bat label: '', script: 'mvn clean package'
+        }
+        stage('Archive') {
+            archiveArtifacts "target/*.jar"
+        }
+    }
+}
